@@ -22,9 +22,17 @@ http {
     keepalive 64;
   }
 
+  # --- Redirect www → apex (recommend) ---
   server {
     listen ${PORT};
-    server_name _;
+    server_name www.ena.is;
+    return 301 https://ena.is$request_uri;
+  }
+
+  # --- Main app on apex ---
+  server {
+    listen ${PORT};
+    server_name ena.is _;
 
     # hashed/static assets
     location ~* \.(?:js|mjs|css|png|jpg|jpeg|gif|svg|webp|ico|woff2?)$ {
@@ -44,8 +52,12 @@ http {
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header X-Forwarded-Proto $scheme;
 
+      # WebSockets
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection "upgrade";
     }
+
+    # Enable HSTS after both domains have valid HTTPS
+    # add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
   }
 }
