@@ -36,8 +36,8 @@
             </p>
 
             <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                <a href="#cta" class="inline-flex justify-center rounded-2xl px-5 py-3 text-base md:text-lg font-semibold bg-slate-900 text-white hover:bg-slate-800 focus:outline-none focus-visible:ring">Button A</a>
-                <a href="#components" class="inline-flex justify-center rounded-2xl px-5 py-3 text-base md:text-lg font-semibold border border-slate-300 hover:bg-slate-50">Button B</a>
+                <a href="/" class="inline-flex justify-center rounded-2xl px-5 py-3 text-base md:text-lg font-semibold bg-slate-900 text-white hover:bg-slate-800 focus:outline-none focus-visible:ring">Button A</a>
+                <a href="/" class="inline-flex justify-center rounded-2xl px-5 py-3 text-base md:text-lg font-semibold border border-slate-300 hover:bg-slate-50">Button B</a>
             </div>
         </div>
 
@@ -106,8 +106,8 @@
                 <p class="mt-2 text-slate-300">TBA</p>
             </div>
             <div class="mt-6 @md:mt-0 flex gap-3">
-                <a class="inline-flex items-center justify-center rounded-2xl bg-white text-slate-900 px-5 py-3 font-semibold hover:bg-slate-100" href="#">Button C</a>
-                <a class="inline-flex items-center justify-center rounded-2xl border border-white/30 px-5 py-3 font-semibold hover:bg-white/10" href="#">Button D</a>
+                <a class="inline-flex items-center justify-center rounded-2xl bg-white text-slate-900 px-5 py-3 font-semibold hover:bg-slate-100" href="/">Button C</a>
+                <a class="inline-flex items-center justify-center rounded-2xl border border-white/30 px-5 py-3 font-semibold hover:bg-white/10" href="/">Button D</a>
             </div>
         </div>
     </div>

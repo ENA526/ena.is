@@ -28,15 +28,15 @@
 				</summary>
 				<div class="absolute right-0 mt-2 w-48 rounded-xl border border-slate-200 bg-white shadow-lg p-2">
 					<a class="block rounded-lg px-3 py-2 hover:bg-slate-50" href="/minesweeper">Minesweeper</a>
-					<a class="block rounded-lg px-3 py-2 hover:bg-slate-50" href="#components">Link 2</a>
-					<a class="block rounded-lg px-3 py-2 hover:bg-slate-50" href="#cta">Link 3</a>
+					<a class="block rounded-lg px-3 py-2 hover:bg-slate-50" href="/blog">Blog</a>
+					<a class="block rounded-lg px-3 py-2 hover:bg-slate-50" href="/about">About</a>
 				</div>
 			</details>
 
 			<ul class="hidden sm:flex items-center gap-1 text-sm">
-				<li><a class="rounded-lg px-3 py-2 hover:bg-slate-100" href="#features">Link 1</a></li>
-				<li><a class="rounded-lg px-3 py-2 hover:bg-slate-100" href="#components">Link 2</a></li>
-				<li><a class="rounded-lg px-3 py-2 hover:bg-slate-100" href="#cta">Link 3</a></li>
+				<li><a class="rounded-lg px-3 py-2 hover:bg-slate-100" href="/minesweeper">Minesweeper</a></li>
+				<li><a class="rounded-lg px-3 py-2 hover:bg-slate-100" href="/blog">Blog</a></li>
+				<li><a class="rounded-lg px-3 py-2 hover:bg-slate-100" href="/about">About</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -56,6 +56,4 @@
 </div>
 
 <style>
-	/* Optional: smooth anchor scrolling */
-	html { scroll-behavior: smooth; }
 </style>
