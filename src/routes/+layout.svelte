@@ -111,8 +111,6 @@
 				<li><a class="rounded-lg px-3 py-2 hover:bg-slate-100" href="/minesweeper">Minesweeper</a></li>
 				<li><a class="rounded-lg px-3 py-2 hover:bg-slate-100" href="/blog">Blog</a></li>
 				<li><a class="rounded-lg px-3 py-2 hover:bg-slate-100" href="/about">About</a></li>
-				<li><a class="rounded-lg px-3 py-2 hover:bg-slate-100" href="/blog">Blog</a></li>
-				<li><a class="rounded-lg px-3 py-2 hover:bg-slate-100" href="/about">About</a></li>
 				{#if $session.data}
 					<li><a class="rounded-lg px-3 py-2 hover:bg-slate-100" href="/signout">Logout</a></li>
 				{:else}
