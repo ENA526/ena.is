@@ -1,9 +1,9 @@
-<script lang="ts">
+<script>
   import { authClient } from "$lib/auth/auth-client";
   let email = "";
   let password = "";
   let name = "";
-  let error: string | null = null;
+  let error = null;
 
   async function handleSignup() {
     const { error: err } = await authClient.signUp.email({

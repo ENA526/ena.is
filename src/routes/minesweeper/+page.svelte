@@ -1,3 +1,6 @@
+<script>
+</script>
+
 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 grid gap-10 lg:items-center justify-items-center">
   <div class="@container w-full max-w-xl sm:max-w-2xl lg:max-w-3xl rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden">
     <div class="flex flex-col @md:flex-row">
