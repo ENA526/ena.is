@@ -37,7 +37,7 @@ function sanitizeRedirect(value, fallback = '/') {
 }
 
 export async function handle({ event, resolve }) {
-  console.log("handle hook called for", event.url.pathname);
+  // console.log("handle hook called for", event.url.pathname);
   const path = event.url.pathname;
   const isGET = event.request.method === 'GET';
   const acceptsHTML = event.request.headers.get('accept')?.includes('text/html') ?? false;
