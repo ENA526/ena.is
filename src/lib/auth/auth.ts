@@ -7,9 +7,7 @@ const ORIGINS = [
   "http://localhost:3000",
   "http://127.0.0.1:3000",
   "https://ena.is",
-  "https://www.ena.is",      // if you serve on www too
-  // add preview domains if you have them, e.g. Vercel/Render/Netlify:
-  // "https://ena-preview-*.vercel.app"  // only if Better Auth supports wildcards; otherwise list each
+  "https://www.ena.is",
 ];
 
 const pool = new Pool({
