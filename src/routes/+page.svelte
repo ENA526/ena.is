@@ -23,6 +23,10 @@
 	];
 </script>
 
+<svelte:head>
+  <title>ENA</title>
+</svelte:head>
+
 <section class="relative isolate">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 grid gap-10 lg:grid-cols-2 lg:items-center">
         <div class="space-y-6">
