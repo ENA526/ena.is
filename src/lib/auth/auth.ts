@@ -30,7 +30,12 @@ export const auth = betterAuth({
             clientId: process.env.GOOGLE_CLIENT_ID as string, 
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, 
             redirectURI: "https://ena.is/api/auth/callback/google",
-        }, 
+        },
+        discord: { 
+            clientId: process.env.DISCORD_CLIENT_ID as string, 
+            clientSecret: process.env.DISCORD_CLIENT_SECRET as string, 
+            redirectURI: "https://ena.is/api/auth/callback/discord",
+        },
     },
   emailAndPassword: {
     enabled: true,
