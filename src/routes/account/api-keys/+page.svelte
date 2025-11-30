@@ -8,7 +8,7 @@
 
   async function load() {
     loading = true;
-    const res = await fetch("/api/botkeys");
+    const res = await fetch("/api/bot-keys");
     if (!res.ok) {
       error = "Failed to load";
       loading = false;
@@ -19,14 +19,14 @@
   }
 
   async function createKey() {
-    const res = await fetch("/api/botkeys", { method: "POST" });
+    const res = await fetch("/api/bot-keys", { method: "POST" });
     const data = await res.json();
     newKey = data.key;
     await load();
   }
 
   async function toggle(id, is_active) {
-    await fetch("/api/botkeys", {
+    await fetch("/api/bot-keys", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, is_active })
@@ -36,7 +36,7 @@
 
   async function remove(id) {
     if (!confirm("Delete this API key permanently?")) return;
-    await fetch("/api/botkeys", {
+    await fetch("/api/bot-keys", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id })
