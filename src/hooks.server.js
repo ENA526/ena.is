@@ -71,10 +71,6 @@ export async function handle({ event, resolve }) {
         console.log(sessionResp?.user)
         event.locals.session = sessionResp?.session ?? null;
         event.locals.user = sessionResp?.user ?? null;
-        event.locals.displayName = sessionResp?.session.display_name ?? null;
-        event.locals.avatarUrl = sessionResp?.session.avatar_url ?? null;
-        event.locals.theme = sessionResp?.session.theme ?? null;
-        event.locals.language = sessionResp?.session.language ?? null;
     }
 
     const isAuthed = Boolean(event.locals.session);

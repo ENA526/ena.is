@@ -2,7 +2,6 @@ import { betterAuth } from "better-auth";
 import { Pool } from "pg";
 import { sveltekitCookies } from "better-auth/svelte-kit";
 import { getRequestEvent } from "$app/server";
-import { customSession } from "better-auth/plugins"; // ✅ ADD THIS
 
 const ORIGINS = [
   "http://localhost:3000",
@@ -67,21 +66,6 @@ export const auth = betterAuth({
   },
 
   plugins: [
-
-    // ✅ SESSION ENRICHMENT (NO DB MUTATION)
-    customSession(async ({ user, session }) => {
-      return {
-        user: {
-          ...user,
-          display_name: "display_name",
-          avatar_url: "avatar_url",
-          theme: "theme",
-          language: "language",
-        },
-        session,
-      };
-    }),
-
     // MUST BE LAST
     sveltekitCookies(getRequestEvent),
   ],
