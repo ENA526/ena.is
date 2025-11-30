@@ -1,25 +1,15 @@
 <script>
-  let apiKey = "";
   let status = "";
   let loading = false;
 
   async function sendTest() {
-    if (!apiKey) {
-      status = "❌ Please enter an API key.";
-      return;
-    }
-
     status = "";
     loading = true;
 
     try {
-      const res = await fetch("https://enabot-production.up.railway.app/test/post", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({ message: "API is alive" })
+      // Call YOUR backend (which proxies using decrypted key)
+      const res = await fetch("/api/bot-test", {
+        method: "POST"
       });
 
       const data = await res.json();
@@ -27,12 +17,11 @@
       if (!res.ok) {
         status = "❌ " + (data.error || "Request failed");
       } else {
-        status = "✅ Message delivered. Bot is alive.";
+        status = "✅ Bot is alive and responded successfully.";
       }
     } catch (err) {
-      status = "❌ Network error or API offline.";
+      status = "❌ Network error or internal failure.";
     } finally {
-      apiKey = "";   // wipe after use
       loading = false;
     }
   }
@@ -47,15 +36,8 @@
   <h1 class="text-2xl font-bold">Bot Dashboard</h1>
 
   <p class="text-sm text-slate-600">
-    Send a test request to verify your bot is connected and able to post messages.
+    Send a test signal to your bot using your bound API key.
   </p>
-
-  <input
-    type="password"
-    class="w-full border rounded-lg px-4 py-2"
-    placeholder="Paste your API key"
-    bind:value={apiKey}
-  />
 
   <button
     on:click={sendTest}

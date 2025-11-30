@@ -10,7 +10,7 @@ function hashKey(k) {
 }
 
 function encryptKey(text) {
-  const key = Buffer.from(process.env.MASTER_KEY, "hex"); // 32 bytes
+  const key = Buffer.from(process.env.MASTER_AES_KEY, "hex"); // 32 bytes
   const iv = crypto.randomBytes(12);
 
   const cipher = crypto.createCipheriv("aes-256-gcm", key, iv);
