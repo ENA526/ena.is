@@ -2,7 +2,6 @@ import { json } from "@sveltejs/kit";
 import crypto from "crypto";
 import { db } from "$lib/db.js";
 
-
 export async function GET({ locals }) {
   if (!locals.user) return json({ error: "Unauthorized" }, { status: 401 });
 
@@ -16,23 +15,28 @@ export async function GET({ locals }) {
   return json(rows);
 }
 
+import { hashKey } from "$lib/crypto.js";
+
 export async function POST({ locals, request }) {
   if (!locals.user) return json({ error: "Unauthorized" }, { status: 401 });
 
   const { name } = await request.json();
-  const key = crypto.randomBytes(32).toString("hex");
+
+  const rawKey = crypto.randomBytes(32).toString("hex");
+  const keyHash = hashKey(rawKey);
 
   await db.query(`
-    INSERT INTO enabot_api_keys (key, name, user_id)
+    INSERT INTO enabot_api_keys (key_hash, name, user_id)
     VALUES ($1, $2, $3)
   `, [
-    key,
+    keyHash,
     name || "Default",
     locals.user.id
   ]);
 
-  return json({ key });
+  return json({ key: rawKey });   // show ONCE
 }
+
 
 export async function DELETE({ url, locals }) {
   if (!locals.user) return json({ error: "Unauthorized" }, { status: 401 });
@@ -52,6 +56,7 @@ export async function DELETE({ url, locals }) {
   return json({ success: true });
 }
 
+
 export async function PATCH({ request, locals }) {
   if (!locals.user) return json({ error: "Unauthorized" }, { status: 401 });
 
@@ -60,34 +65,34 @@ export async function PATCH({ request, locals }) {
 
   if (action === "enable") {
     await db.query(`
-      UPDATE enabot_api_keys
-      SET is_active = TRUE
+      UPDATE enabot_api_keys SET is_active = TRUE
       WHERE id = $1 AND user_id = $2
     `, [id, locals.user.id]);
   }
 
   if (action === "disable") {
     await db.query(`
-      UPDATE enabot_api_keys
-      SET is_active = FALSE
+      UPDATE enabot_api_keys SET is_active = FALSE
       WHERE id = $1 AND user_id = $2
     `, [id, locals.user.id]);
   }
 
   if (action === "rotate") {
-    const newKey = crypto.randomBytes(32).toString("hex");
+    const rawKey = crypto.randomBytes(32).toString("hex");
+    const keyHash = hashKey(rawKey);
 
     const { rows } = await db.query(`
       UPDATE enabot_api_keys
-      SET key = $1,
+      SET key_hash = $1,
           created_at = NOW(),
           last_used = NULL
       WHERE id = $2 AND user_id = $3
-      RETURNING key
-    `, [newKey, id, locals.user.id]);
+      RETURNING id
+    `, [keyHash, id, locals.user.id]);
 
-    return json({ key: rows[0].key });
+    return json({ key: rawKey });
   }
 
   return json({ success: true });
 }
+
