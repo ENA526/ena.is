@@ -20,7 +20,15 @@ import { hashKey } from "$lib/crypto.js";
 export async function POST({ locals, request }) {
   if (!locals.user) return json({ error: "Unauthorized" }, { status: 401 });
 
-  const { name } = await request.json();
+  let name = "Default";
+
+  try {
+    const body = await request.json();
+    name = body?.name || "Default";
+  } catch {
+    // no body — keep default name
+  }
+
 
   const rawKey = crypto.randomBytes(32).toString("hex");
   const keyHash = hashKey(rawKey);
