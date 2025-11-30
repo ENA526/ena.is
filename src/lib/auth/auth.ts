@@ -34,15 +34,6 @@ export const auth = betterAuth({
     }
   },
 
-  session: {
-        additionalFields: {
-            display_name: { type: "string" },
-            avatar_url:   { type: "string" },
-            theme:        { type: "string", defaultValue: "light" },
-            language:     { type: "string", defaultValue: "en" }
-        }
-    },
-
   socialProviders: {
     github:  {
       clientId: process.env.GITHUB_CLIENT_ID!,
