@@ -118,17 +118,3 @@ export async function PATCH({ request, locals }) {
 
   return json({ error: "Invalid action" }, { status: 400 });
 }
-
-// DELETE – hard delete
-export async function DELETE({ locals, request }) {
-  if (!locals.user) return json({ error: "Unauthorized" }, { status: 401 });
-
-  const { id } = await request.json();
-
-  await db.query(`
-    DELETE FROM enabot_api_keys
-    WHERE id = $1 AND account_id = $2
-  `, [id, locals.user.id]);
-
-  return json({ ok: true });
-}
