@@ -3,39 +3,64 @@ import crypto from "crypto";
 import { db } from "$lib/db.js";
 
 /**
- * GET /api/apikeys
+ * GET /api/botkeys
  * List API keys for logged-in user
  */
 export async function GET({ locals }) {
   if (!locals.user) return json({ error: "Unauthorized" }, { status: 401 });
 
-  const result = await db.query(`
-    SELECT id, key, is_active, last_used, created_at
+  const accountRes = await db.query(`
+    SELECT id FROM account WHERE accountid = $1
+  `, [locals.user.id]);
+
+  if (!accountRes.rows.length)
+    return json({ error: "Account missing" }, { status: 400 });
+
+  const id = accountRes.rows[0].id;
+
+  const keys = await db.query(`
+    SELECT id, is_active, created_at, last_used
     FROM enabot_api_keys
     WHERE account_id = $1
     ORDER BY created_at DESC
-  `, [locals.user.id]);
+  `, [id]);
 
-  return json(result.rows);
+  return json(keys.rows);
 }
 
+
 /**
- * POST /api/apikeys
+ * POST /api/botkeys
  * Create a new API key
  */
 export async function POST({ locals }) {
-  if (!locals.user) return json({ error: "Unauthorized" }, { status: 401 });
+  if (!locals.user) {
+    return json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // Translate BetterAuth user -> DB account
+  const accountRes = await db.query(`
+    SELECT id
+    FROM account
+    WHERE accountid = $1
+  `, [locals.user.id]);
+
+  if (!accountRes.rows.length) {
+    return json({ error: "Account not found" }, { status: 400 });
+  }
+
+  const accountId = accountRes.rows[0].id;
 
   const apiKey = crypto.randomBytes(32).toString("hex");
 
-  const result = await db.query(`
+  await db.query(`
     INSERT INTO enabot_api_keys (key, account_id)
     VALUES ($1, $2)
-    RETURNING id, key, created_at
-  `, [apiKey, locals.user.id]);
+  `, [apiKey, accountId]);
 
-  return json(result.rows[0]);
+  return json({ key: apiKey });
 }
+
 
 /**
  * DELETE /api/apikeys?id=<keyId>
