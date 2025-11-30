@@ -1,35 +1,44 @@
-// +server.js for /api/bot-test
 import { json } from "@sveltejs/kit";
 import { db } from "$lib/db.js";
 
-export async function POST({ locals }) {
+/**
+ * POST /api/bot-test
+ * Body: { message }
+ */
+export async function POST({ request, locals, fetch }) {
+
   if (!locals.user)
     return json({ error: "Unauthorized" }, { status: 401 });
 
+  const { message } = await request.json();
+  if (!message)
+    return json({ error: "Message is required" }, { status: 400 });
+
+  // 1) Get bound encrypted key
   const { rows } = await db.query(`
-    SELECT k.encrypted_key
+    SELECT ak.encrypted_key
     FROM enabot_api_keys b
-    JOIN api_keys k ON k.key_hash = b.key_hash
-    WHERE k.user_id = $1
-      AND k.is_active = TRUE
+    JOIN api_keys ak ON ak.key_hash = b.key_hash
+    WHERE ak.user_id = $1
     LIMIT 1
   `, [locals.user.id]);
 
   if (!rows.length)
-    return json({ error: "No bound API key" }, { status: 400 });
+    return json({ error: "No API key bound to bot" }, { status: 403 });
 
-  const encryptedKey = rows[0].encrypted_key; // BYTEA
+  const encrypted = rows[0].encrypted_key.toString("base64");
 
+  // 2) Forward message to bot API
   const res = await fetch("https://enabot-production.up.railway.app/test/post", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      // send encrypted blob as base64
-      "x-api-key-encrypted": Buffer.from(encryptedKey).toString("base64")
+      "x-api-key-encrypted": encrypted
     },
-    body: JSON.stringify({ message: "API is alive" })
+    body: JSON.stringify({ message })
   });
 
   const data = await res.json();
+
   return json(data, { status: res.status });
 }

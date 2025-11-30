@@ -1,15 +1,22 @@
 <script>
   let status = "";
   let loading = false;
+  let message = "";
 
   async function sendTest() {
+    if (!message.trim()) {
+      status = "❌ Message cannot be empty.";
+      return;
+    }
+
     status = "";
     loading = true;
 
     try {
-      // Call YOUR backend (which proxies using decrypted key)
       const res = await fetch("/api/bot-test", {
-        method: "POST"
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
       });
 
       const data = await res.json();
@@ -17,7 +24,8 @@
       if (!res.ok) {
         status = "❌ " + (data.error || "Request failed");
       } else {
-        status = "✅ Bot is alive and responded successfully.";
+        status = "✅ Message sent successfully.";
+        message = ""; // clear input after sending
       }
     } catch (err) {
       status = "❌ Network error or internal failure.";
@@ -26,6 +34,7 @@
     }
   }
 </script>
+
 
 <svelte:head>
   <title>Bot Dashboard</title>
@@ -36,14 +45,21 @@
   <h1 class="text-2xl font-bold">Bot Dashboard</h1>
 
   <p class="text-sm text-slate-600">
-    Send a test signal to your bot using your bound API key.
+    Send a message through your bound API key to the bot.
   </p>
+
+  <textarea
+    rows="4"
+    class="w-full border rounded-lg px-4 py-2"
+    placeholder="Type your message..."
+    bind:value={message}
+  />
 
   <button
     on:click={sendTest}
     disabled={loading}
     class="bg-slate-900 text-white px-4 py-2 rounded-lg disabled:opacity-50">
-    {loading ? "Sending..." : "Send Test Message"}
+    {loading ? "Sending..." : "Send Message"}
   </button>
 
   {#if status}
@@ -51,3 +67,4 @@
   {/if}
 
 </section>
+
