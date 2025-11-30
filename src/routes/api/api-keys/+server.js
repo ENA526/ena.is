@@ -5,45 +5,57 @@ import { db } from "$lib/db.js";
 export async function GET({ locals }) {
   if (!locals.user) return json({ error: "Unauthorized" }, { status: 401 });
 
-  const { rows } = await db.query(`
-    SELECT id, name, is_active, created_at, last_used
-    FROM api_keys
-    WHERE user_id = $1
-    ORDER BY created_at DESC
+  const data = await db.query(`
+    SELECT ek.id, ek.is_active, ek.created_at
+    FROM enabot_api_keys ek
+    JOIN api_keys k ON ek.api_key_id = k.id
+    WHERE k.user_id = $1
+    ORDER BY ek.created_at DESC
   `, [locals.user.id]);
 
-  return json(rows);
+  return json(data.rows);
 }
 
-import { hashKey } from "$lib/crypto.js";
 
-export async function POST({ locals, request }) {
-  if (!locals.user) return json({ error: "Unauthorized" }, { status: 401 });
+export async function POST({ request, locals }) {
+  if (!locals.user)
+    return json({ error: "Unauthorized" }, { status: 401 });
 
-  let name = "Default";
-
+  let body;
   try {
-    const body = await request.json();
-    name = body?.name || "Default";
+    body = await request.json();
   } catch {
-    // no body — keep default name
+    return json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
+  const { key } = body;
+  if (!key)
+    return json({ error: "Missing API key" }, { status: 400 });
 
-  const rawKey = crypto.randomBytes(32).toString("hex");
-  const keyHash = hashKey(rawKey);
+  // Hash before storing
+  const hash = crypto.createHash("sha256").update(key).digest("hex");
 
+  // Check ownership in main api_keys table
+  const owner = await db.query(`
+    SELECT id FROM api_keys
+    WHERE key_hash = $1
+  `, [hash]);
+
+  if (!owner.rowCount)
+    return json({ error: "Invalid API key" }, { status: 403 });
+
+  const apiKeyId = owner.rows[0].id;
+
+  // Link to bot table
   await db.query(`
-    INSERT INTO api_keys (key_hash, name, user_id)
-    VALUES ($1, $2, $3)
-  `, [
-    keyHash,
-    name || "Default",
-    locals.user.id
-  ]);
+    INSERT INTO enabot_api_keys (api_key_id)
+    VALUES ($1)
+    ON CONFLICT DO NOTHING
+  `, [apiKeyId]);
 
-  return json({ key: rawKey });   // show ONCE
+  return json({ success: true });
 }
+
 
 
 export async function DELETE({ request, locals }) {
