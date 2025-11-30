@@ -26,7 +26,6 @@ export const auth = betterAuth({
     additionalFields: {
       display_name: { type: "string", required: false },
       full_name:    { type: "string", required: false },
-      avatar_url:   { type: "string", required: false },
       bio:          { type: "string", required: false },
       timezone:     { type: "string", required: false },
       theme:        { type: "string", required: false, defaultValue: "light" },

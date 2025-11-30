@@ -51,16 +51,26 @@ export async function handle({ event, resolve }) {
 
     if (DEV) {
         event.locals.user = {
-            id: 'dev-user',
-            email: 'dev@ena.local',
-            name: 'Local Developer',
-            role: 'admin'
+            id: "dev-user",
+
+            email: "dev@ena.local",
+            name: "Local Developer",
+            emailVerified: true,
+
+            image: "https://lh3.googleusercontent.com/a/ACg8ocIZuPBwAL3t1OS_G-18qs_-I0YmDtaoPADymZA51c7JDhYmxvaE=s96-c",
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+
+            display_name: "Local Dev",
+            full_name: "Local Developer",
+            bio: "me",
+            timezone: "UTC",
+            theme: "dark",
+            language: "en"
         };
 
         event.locals.session = {
-            id: 'dev-session',
-            userId: 'dev-user',
-            createdAt: new Date(),
+            token: '4480i1pL7Y21MZHyhdn3qE2aVyP2FMdy',
             expiresAt: new Date(Date.now() + 86400000)
         };
     }
