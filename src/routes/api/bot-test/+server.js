@@ -1,11 +1,19 @@
 import { json } from "@sveltejs/kit";
 import { db } from "$lib/db.js";
+import { withApiLogger } from "$lib/apiLogger/withApiLogger.js"
 
 /**
  * POST /api/bot-test
  * Body: { message }
  */
-export async function POST({ request, locals, fetch }) {
+
+export const POST = withApiLogger({
+        index: {
+            request: ["message"],
+            response: ["status"]
+        }
+    },
+    async function POST({ request, locals, fetch }) {
 
     if (!locals.user)
     return json({ error: "Unauthorized" }, { status: 401 });
@@ -43,3 +51,4 @@ export async function POST({ request, locals, fetch }) {
 
     return json(data, { status: res.status });
 }
+)

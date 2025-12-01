@@ -27,6 +27,7 @@ export const auth = betterAuth({
             display_name: { type: "string", required: false },
             full_name:    { type: "string", required: false },
             bio:          { type: "string", required: false },
+            role:         { type: "string", required: true, defaultValue: "user" },
             timezone:     { type: "string", required: false },
             theme:        { type: "string", required: false, defaultValue: "light" },
             language:     { type: "string", required: false, defaultValue: "en" }
