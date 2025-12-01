@@ -4,9 +4,9 @@ import { randomUUID } from "crypto"
 import { enqueue } from "$lib/apiLogger/queue.js"
 import { db } from "$lib/db.js"
 
-// ----------------------------------------------------
+// -----------------------------------------------------
 // Utility
-// ----------------------------------------------------
+// -----------------------------------------------------
 
 function getClientIP(request) {
     return (
