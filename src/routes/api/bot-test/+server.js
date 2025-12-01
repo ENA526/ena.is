@@ -7,38 +7,39 @@ import { db } from "$lib/db.js";
  */
 export async function POST({ request, locals, fetch }) {
 
-  if (!locals.user)
+    if (!locals.user)
     return json({ error: "Unauthorized" }, { status: 401 });
 
-  const { message } = await request.json();
-  if (!message)
+    const { message } = await request.json();
+    if (!message)
     return json({ error: "Message is required" }, { status: 400 });
 
-  // 1) Get bound encrypted key
-  const { rows } = await db.query(`
-    SELECT ak.encrypted_key
-    FROM enabot_api_keys b
-    JOIN api_keys ak ON ak.key_hash = b.key_hash
-    WHERE ak.user_id = $1
-    LIMIT 1
-  `, [locals.user.id]);
+    // 1) Get bound encrypted key
+    const { rows } = await db.query(`
+        SELECT ak.encrypted_key
+        FROM enabot_api_keys b
+        JOIN api_keys ak ON ak.key_hash = b.key_hash
+        WHERE ak.user_id = $1
+        LIMIT 1
+        `, [locals.user.id]
+    );
 
-  if (!rows.length)
+    if (!rows.length)
     return json({ error: "No API key bound to bot" }, { status: 403 });
 
-  const encrypted = rows[0].encrypted_key.toString("base64");
+    const encrypted = rows[0].encrypted_key.toString("base64");
 
-  // 2) Forward message to bot API
-  const res = await fetch("https://enabot-production.up.railway.app/test/post", {
+    // 2) Forward message to bot API
+    const res = await fetch("https://enabot-production.up.railway.app/test/post", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      "x-api-key-encrypted": encrypted
+        "Content-Type": "application/json",
+        "x-api-key-encrypted": encrypted
     },
     body: JSON.stringify({ message })
-  });
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  return json(data, { status: res.status });
+    return json(data, { status: res.status });
 }
