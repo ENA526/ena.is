@@ -57,7 +57,7 @@ export async function handle({ event, resolve }) {
             name: "Local Developer",
             emailVerified: true,
 
-            image: "https://lh3.googleusercontent.com/a/ACg8ocIZuPBwAL3t1OS_G-18qs_-I0YmDtaoPADymZA51c7JDhYmxvaE=s96-c",
+            image: "https://avatars.githubusercontent.com/u/61644589?v=4&size=64",
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
 
@@ -70,14 +70,20 @@ export async function handle({ event, resolve }) {
         };
 
         event.locals.session = {
+            id: "dev-session",
+            userId: "dev-user",
             token: '4480i1pL7Y21MZHyhdn3qE2aVyP2FMdy',
-            expiresAt: new Date(Date.now() + 86400000)
+            expiresAt: new Date(Date.now() + 86400000),
+            ipAddress: '127.0.0.1',
+            userAgent: 'DevServer'
         };
+
+        // event.locals.user = null;
+        // event.locals.session = null;
     }
     else {
         // ✅ Production auth
         const sessionResp = await auth.api.getSession({ headers: event.request.headers });
-        console.log("Session response:", sessionResp);
         event.locals.session = sessionResp?.session ?? null;
         event.locals.user = sessionResp?.user ?? null;
     }
