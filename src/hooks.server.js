@@ -77,6 +77,7 @@ export async function handle({ event, resolve }) {
     else {
         // ✅ Production auth
         const sessionResp = await auth.api.getSession({ headers: event.request.headers });
+        console.log("Session response:", sessionResp);
         event.locals.session = sessionResp?.session ?? null;
         event.locals.user = sessionResp?.user ?? null;
     }
