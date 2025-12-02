@@ -1,5 +1,5 @@
 <script>
-	import { authClient } from '$lib/auth-client';
+	import { authClient } from '$lib/auth/auth-client';
 	import { onMount } from 'svelte';
 
 	let accounts = $state([]);
