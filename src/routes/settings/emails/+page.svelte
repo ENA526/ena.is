@@ -64,7 +64,7 @@
 	<div class="space-y-8">
 		<!-- Header -->
 		<div>
-			<p class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-600">Account Settings</p>
+			<p class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-600">Access</p>
 			<h1 class="mt-2 text-3xl sm:text-4xl font-extrabold leading-tight">
 				Emails
 			</h1>

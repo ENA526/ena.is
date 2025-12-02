@@ -35,7 +35,7 @@
 	<div class="space-y-8">
 		<!-- Header -->
 		<div>
-			<p class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-600">Account Settings</p>
+			<p class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-600">Personal</p>
 			<div class="flex items-center justify-between flex-wrap gap-3 mt-2">
 				<h1 class="text-3xl sm:text-4xl font-extrabold leading-tight">
 					Public profile

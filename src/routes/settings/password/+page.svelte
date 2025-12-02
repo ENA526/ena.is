@@ -66,66 +66,67 @@
 </script>
 
 <svelte:head>
-	<title>Link Accounts - ENA</title>
+	<title>Linked Accounts - ENA</title>
 </svelte:head>
 
 <section class="relative isolate">
-	<div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
-		<div class="space-y-6">
-			<div>
-				<p class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-600">Account Settings</p>
-				<h1 class="mt-2 text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
-					Linked Accounts
-				</h1>
-				<p class="mt-3 text-base sm:text-lg text-slate-600 max-w-prose">
-					Connect your social accounts to enable additional features and simplify sign-in.
-				</p>
-			</div>
+	<div class="space-y-8">
+		<!-- Header -->
+		<div>
+			<p class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-600">Account Settings</p>
+			<h1 class="mt-2 text-3xl sm:text-4xl font-extrabold leading-tight">
+				Linked Accounts
+			</h1>
+			<p class="mt-3 text-base text-slate-600">
+				Connect your social accounts to enable additional features and simplify sign-in.
+			</p>
+		</div>
 
-			{#if loading}
-				<div class="rounded-2xl border border-slate-200 bg-white p-8 text-center">
-					<p class="text-slate-600">Loading accounts...</p>
-				</div>
-			{:else}
-				<div class="space-y-3">
-					{#each providers as provider}
-						{@const linked = isLinked(provider.id)}
-						<div class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-							<div class="p-6 flex items-center justify-between">
-								<div class="flex items-center gap-4">
-									<div class="relative">
-										<div class="w-12 h-12 rounded-xl border border-slate-200 flex items-center justify-center bg-white">
+		{#if loading}
+			<div class="rounded-2xl border border-slate-200 bg-white shadow-sm p-8 text-center">
+				<p class="text-slate-600">Loading accounts...</p>
+			</div>
+		{:else}
+			<div class="space-y-4">
+				{#each providers as provider}
+					{@const linked = isLinked(provider.id)}
+					<div class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+						<div class="p-4 sm:p-6">
+							<div class="flex items-center justify-between gap-3 sm:gap-4 mb-3 [@media(min-width:375px)]:mb-0">
+								<div class="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+									<div class="relative flex-shrink-0">
+										<div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl border border-slate-200 flex items-center justify-center bg-white">
 											{@html provider.svg}
 										</div>
 										{#if linked}
-											<div class="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
-												<svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<div class="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
+												<svg class="w-2 h-2 sm:w-3 sm:h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
 												</svg>
 											</div>
 										{/if}
 									</div>
-									<div>
-										<h3 class="text-lg font-semibold">{provider.name}</h3>
+									<div class="min-w-0 flex-1">
+										<h3 class="text-sm sm:text-base font-semibold text-slate-900">{provider.name}</h3>
 										{#if linked}
-											<p class="text-sm text-green-600 font-medium">Linked</p>
+											<p class="text-xs sm:text-sm text-green-600 font-medium whitespace-nowrap">Connected</p>
 										{:else}
-											<p class="text-sm text-slate-500">Not connected</p>
+											<p class="text-xs sm:text-sm text-slate-500 whitespace-nowrap">Not connected</p>
 										{/if}
 									</div>
 								</div>
 
-								<div>
+								<div class="hidden [@media(min-width:375px)]:block flex-shrink-0">
 									{#if linked}
 										<button
-											class="rounded-lg border border-red-300 bg-white px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 transition duration-150"
+											class="rounded-lg border border-red-300 bg-white px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-red-600 hover:bg-red-50 transition duration-150 whitespace-nowrap"
 											onclick={() => unlinkAccount(provider.id)}
 										>
 											Unlink
 										</button>
 									{:else}
 										<button
-											class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition duration-150"
+											class="rounded-lg border border-slate-300 bg-white px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-900 hover:bg-slate-50 transition duration-150 whitespace-nowrap"
 											onclick={() => linkAccount(provider.id)}
 										>
 											Link Account
@@ -133,31 +134,48 @@
 									{/if}
 								</div>
 							</div>
-						</div>
-					{/each}
-				</div>
-			{/if}
-		</div>
-	</div>
-</section>
 
-<!-- Info Section -->
-<section class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pb-16">
-	<div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-		<h3 class="text-lg font-semibold">Why link accounts?</h3>
-		<ul class="mt-3 space-y-2 text-sm text-slate-600">
-			<li class="flex items-start gap-2">
-				<span class="text-slate-400 mt-0.5">•</span>
-				<span>Sign in with any of your linked accounts</span>
-			</li>
-			<li class="flex items-start gap-2">
-				<span class="text-slate-400 mt-0.5">•</span>
-				<span>Access additional features (Discord bot management requires Discord linked)</span>
-			</li>
-			<li class="flex items-start gap-2">
-				<span class="text-slate-400 mt-0.5">•</span>
-				<span>Keep your account secure with multiple authentication methods</span>
-			</li>
-		</ul>
+							<!-- Button for very small screens (below 375px) -->
+							<div class="[@media(min-width:375px)]:hidden">
+								{#if linked}
+									<button
+										class="w-full rounded-lg border border-red-300 bg-white px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-50 transition duration-150"
+										onclick={() => unlinkAccount(provider.id)}
+									>
+										Unlink
+									</button>
+								{:else}
+									<button
+										class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-900 hover:bg-slate-50 transition duration-150"
+										onclick={() => linkAccount(provider.id)}
+									>
+										Link Account
+									</button>
+								{/if}
+							</div>
+						</div>
+					</div>
+				{/each}
+			</div>
+		{/if}
+
+		<!-- Info Section -->
+		<div class="rounded-2xl border border-slate-200 bg-slate-50 shadow-sm p-4 sm:p-6">
+			<h3 class="text-base font-semibold text-slate-900 mb-3">Why link accounts?</h3>
+			<ul class="space-y-2 text-sm text-slate-600">
+				<li class="flex items-start gap-2">
+					<span class="text-slate-400 mt-0.5">•</span>
+					<span>Sign in with any of your linked accounts</span>
+				</li>
+				<li class="flex items-start gap-2">
+					<span class="text-slate-400 mt-0.5">•</span>
+					<span>Access additional features (Discord bot management requires Discord linked)</span>
+				</li>
+				<li class="flex items-start gap-2">
+					<span class="text-slate-400 mt-0.5">•</span>
+					<span>Keep your account secure with multiple authentication methods</span>
+				</li>
+			</ul>
+		</div>
 	</div>
 </section>
