@@ -25,7 +25,7 @@
 		try {
 			await authClient.linkSocial({
 				provider,
-				callbackURL: "/account/settings"
+				callbackURL: "/settings/password"
 			});
 			console.log('Link initiated for:', provider);
 		} catch (error) {
