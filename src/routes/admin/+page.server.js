@@ -1,5 +1,5 @@
 import { redirect } from '@sveltejs/kit';
-import { auth } from '$lib/server/auth';
+import { auth } from '$lib/auth/auth';
 
 export async function load({ locals, request }) {
     // Check if user is logged in
