@@ -6,8 +6,8 @@
 	let loading = $state(true);
 
 	onMount(async () => {
-		const result = await authClient.user.listAccounts();
-		accounts = result.data || [];
+		const result = await authClient.listAccounts();
+		accounts = result || [];
 		loading = false;
 	});
 
@@ -27,8 +27,8 @@
 			try {
 				await authClient.unlinkAccount({ providerId });
 				// Refresh accounts list
-				const result = await authClient.user.listAccounts();
-				accounts = result.data || [];
+				const result = await authClient.listAccounts();
+				accounts = result || [];
 			} catch (error) {
 				alert(`Failed to unlink account: ${error.message}`);
 			}
