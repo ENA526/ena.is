@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
    import { authClient } from '$lib/auth/auth-client'; // Adjust path to your auth client
    import { onMount } from 'svelte';
    
@@ -20,4 +20,4 @@
       <h2>Linked Accounts</h2>
       <pre>{JSON.stringify(accounts, null, 2)}</pre>
    </div>
-{/if}
+{/if} -->
