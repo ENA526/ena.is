@@ -6,8 +6,9 @@
 
 	$effect(() => {
 		authClient.listAccounts().then((result) => {
-			accounts = result || [];
+			accounts = result.data || [];
 			loading = false;
+            console.log(accounts)
 		});
 	});
 
@@ -21,10 +22,16 @@
 	};
 
 	const linkAccount = async (provider) => {
-		await authClient.linkSocial({
-			provider,
-			callbackURL: "/account/settings"
-		});
+		console.log('Linking account:', provider);
+		try {
+			await authClient.linkSocial({
+				provider,
+				callbackURL: "/account/settings"
+			});
+			console.log('Link initiated for:', provider);
+		} catch (error) {
+			console.error('Error linking account:', error);
+		}
 	};
 
 	const unlinkAccount = async (providerId) => {
@@ -33,7 +40,7 @@
 				await authClient.unlinkAccount({ providerId });
 				// Refresh accounts list
 				const result = await authClient.listAccounts();
-				accounts = result || [];
+				accounts = result.data || [];
 			} catch (error) {
 				alert(`Failed to unlink account: ${error.message}`);
 			}
