@@ -1,12 +1,12 @@
 <script>
-	import { authClient } from '$lib/auth-client';
+	import { authClient } from '$lib/auth/auth-client';
 
 	let accounts = $state([]);
 	let loading = $state(true);
 
 	$effect(() => {
-		authClient.user.listAccounts().then((result) => {
-			accounts = result.data || [];
+		authClient.listAccounts().then((result) => {
+			accounts = result || [];
 			loading = false;
 		});
 	});
@@ -32,8 +32,8 @@
 			try {
 				await authClient.unlinkAccount({ providerId });
 				// Refresh accounts list
-				const result = await authClient.user.listAccounts();
-				accounts = result.data || [];
+				const result = await authClient.listAccounts();
+				accounts = result || [];
 			} catch (error) {
 				alert(`Failed to unlink account: ${error.message}`);
 			}
