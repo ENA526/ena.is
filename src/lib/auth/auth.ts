@@ -34,6 +34,15 @@ export const auth = betterAuth({
         }
     },
 
+    // ✅ ACCOUNT LINKING
+    account: {
+        accountLinking: {
+            enabled: true,
+            allowDifferentEmails: true,
+            trustedProviders: ["github", "google", "discord"]
+        }
+    },
+
     socialProviders: {
         github: {
             clientId: process.env.GITHUB_CLIENT_ID!,
@@ -45,10 +54,11 @@ export const auth = betterAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
             redirectURI: "https://ena.is/api/auth/callback/google",
         },
-        discord:{
+        discord: {
             clientId: process.env.DISCORD_CLIENT_ID!,
             clientSecret: process.env.DISCORD_CLIENT_SECRET!,
             redirectURI: "https://ena.is/api/auth/callback/discord",
+            scopes: ["identify", "guilds"], // ✅ Added guilds scope for server selection
         },
     },
 
