@@ -166,8 +166,6 @@ function clickOutside(node, anchor) {
             <a href="/minesweeper" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Minesweeper</a>
             <a href="/blog" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Blog</a>
             <a href="/about" class="block px-3 py-2 rounded-lg hover:bg-slate-50">About</a>
-            <a href="/settings" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Settings</a>
-            <a href="/bot/dashboard" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Bot Dashboard</a>
             <a href="/login" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Login</a>
             <a href="/register" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Register</a>
           </div>
