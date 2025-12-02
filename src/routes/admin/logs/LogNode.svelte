@@ -121,16 +121,16 @@
         <section>
             <h4 class="font-semibold text-slate-700 mb-3 text-xs uppercase tracking-wide">Meta</h4>
             <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-1.5 text-xs">
-                <div class="flex"><span class="text-slate-500 w-20 shrink-0">ID:</span><span class="text-slate-900 font-mono text-xs break-all">{node.id}</span></div>
-                <div class="flex"><span class="text-slate-500 w-20 shrink-0">User:</span><span class="text-slate-900">{node.user_id || "anon"}</span></div>
-                <div class="flex"><span class="text-slate-500 w-20 shrink-0">Trace:</span><span class="text-slate-900 font-mono text-xs break-all">{node.trace_id}</span></div>
-                <div class="flex"><span class="text-slate-500 w-20 shrink-0">Span:</span><span class="text-slate-900 font-mono text-xs break-all">{node.span_id}</span></div>
-                <div class="flex"><span class="text-slate-500 w-20 shrink-0">Parent:</span><span class="text-slate-900 font-mono text-xs break-all">{node.parent_span_id || "—"}</span></div>
-                <div class="flex"><span class="text-slate-500 w-20 shrink-0">Method:</span><span class="text-slate-900 font-semibold">{node.method}</span></div>
-                <div class="flex"><span class="text-slate-500 w-20 shrink-0">Path:</span><span class="text-slate-900 font-mono text-xs">{node.path}</span></div>
-                <div class="flex"><span class="text-slate-500 w-20 shrink-0">Status:</span><span class="font-mono font-semibold {statusClass(node.status_code)}">{node.status_code}</span></div>
-                <div class="flex"><span class="text-slate-500 w-20 shrink-0">Time:</span><span class="text-slate-900">{fmtTime(node.created_at)}</span></div>
-                <div class="flex"><span class="text-slate-500 w-20 shrink-0">Duration:</span><span class="font-mono {durationClass(node.duration_ms)}">{node.duration_ms}ms</span></div>
+                <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">ID:</span><span class="text-slate-900 font-mono text-xs break-all min-w-0">{node.id}</span></div>
+                <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">User:</span><span class="text-slate-900 break-all min-w-0">{node.user_id || "anon"}</span></div>
+                <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Trace:</span><span class="text-slate-900 font-mono text-xs break-all min-w-0">{node.trace_id}</span></div>
+                <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Span:</span><span class="text-slate-900 font-mono text-xs break-all min-w-0">{node.span_id}</span></div>
+                <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Parent:</span><span class="text-slate-900 font-mono text-xs break-all min-w-0">{node.parent_span_id || "—"}</span></div>
+                <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Method:</span><span class="text-slate-900 font-semibold break-all min-w-0">{node.method}</span></div>
+                <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Path:</span><span class="text-slate-900 font-mono text-xs break-all min-w-0">{node.path}</span></div>
+                <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Status:</span><span class="font-mono font-semibold {statusClass(node.status_code)}">{node.status_code}</span></div>
+                <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Time:</span><span class="text-slate-900 break-all min-w-0">{fmtTime(node.created_at)}</span></div>
+                <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Duration:</span><span class="font-mono {durationClass(node.duration_ms)}">{node.duration_ms}ms</span></div>
             </div>
         </section>
 
