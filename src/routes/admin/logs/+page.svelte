@@ -37,18 +37,21 @@
 </script>
 
 <svelte:head>
-    <title>ENA · Logs</title>
+    <title>API Logs - ENA</title>
 </svelte:head>
 
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
 
     <div class="mb-6">
-        <h1 class="text-3xl font-bold">API Logs</h1>
-        <p class="text-slate-600">Trace hierarchy</p>
-
-        <div class="text-xs text-slate-400 mt-2">
-            Loaded: {logs.length} · Roots: {tree.length}
-        </div>
+        <div>
+			<p class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-600">Admin</p>
+			<h1 class="mt-2 text-3xl sm:text-4xl font-extrabold leading-tight">
+				API Logs
+			</h1>
+			<p class="mt-3 text-base text-slate-600">
+				Trace hierarchy of API requests.
+			</p>
+		</div>
     </div>
 
     <div class="rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden">
