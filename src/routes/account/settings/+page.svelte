@@ -1,18 +1,23 @@
 <script>
-	import { authClient } from '$lib/auth/auth-client';
-	import { onMount } from 'svelte';
+	import { authClient } from '$lib/auth-client';
 
 	let accounts = $state([]);
 	let loading = $state(true);
 
-	onMount(async () => {
-		const result = await authClient.listAccounts();
-		accounts = result || [];
-		loading = false;
+	$effect(() => {
+		authClient.user.listAccounts().then((result) => {
+			accounts = result.data || [];
+			loading = false;
+		});
 	});
 
 	const isLinked = (providerId) => {
-		return accounts.some(acc => acc.providerId === providerId);
+		for (let i = 0; i < accounts.length; i++) {
+			if (accounts[i].providerId === providerId) {
+				return true;
+			}
+		}
+		return false;
 	};
 
 	const linkAccount = async (provider) => {
@@ -27,8 +32,8 @@
 			try {
 				await authClient.unlinkAccount({ providerId });
 				// Refresh accounts list
-				const result = await authClient.listAccounts();
-				accounts = result || [];
+				const result = await authClient.user.listAccounts();
+				accounts = result.data || [];
 			} catch (error) {
 				alert(`Failed to unlink account: ${error.message}`);
 			}
