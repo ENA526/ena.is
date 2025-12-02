@@ -25,7 +25,8 @@
 				{ href: '/settings/emails', label: 'Emails', icon: '✉️' },
 				{ href: '/settings/password', label: 'Password and authentication', icon: '🔒' },
 				{ href: '/settings/sessions', label: 'Sessions', icon: '📱' },
-				{ href: '/settings/api-keys', label: 'API keys', icon: '🔑' }
+				{ href: '/settings/api-keys', label: 'API keys', icon: '🔑' },
+                { href: '/settings/bot-keys', label: 'Bot keys', icon: '🔑' }
 			]
 		}
 	];

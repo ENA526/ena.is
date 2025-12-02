@@ -125,11 +125,8 @@ function clickOutside(node, anchor) {
               <a href="/about" class="block px-3 py-2 rounded-lg hover:bg-slate-50">
                 About
               </a>
-              <a href="/settings/account/api-keys" class="block px-3 py-2 rounded-lg hover:bg-slate-50">
-                API Keys
-              </a>
-              <a href="/settings/account/bot-keys" class="block px-3 py-2 rounded-lg hover:bg-slate-50">
-                Bot Keys
+              <a href="/settings" class="block px-3 py-2 rounded-lg hover:bg-slate-50">
+                Settings
               </a>
               <a href="/bot/dashboard" class="block px-3 py-2 rounded-lg hover:bg-slate-50">
                 Bot Dashboard
@@ -169,8 +166,7 @@ function clickOutside(node, anchor) {
             <a href="/minesweeper" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Minesweeper</a>
             <a href="/blog" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Blog</a>
             <a href="/about" class="block px-3 py-2 rounded-lg hover:bg-slate-50">About</a>
-            <a href="/settings/account/api-keys" class="block px-3 py-2 rounded-lg hover:bg-slate-50">API Keys</a>
-            <a href="/settings/account/bot-keys" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Bot Keys</a>
+            <a href="/settings" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Settings</a>
             <a href="/bot/dashboard" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Bot Dashboard</a>
             <a href="/login" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Login</a>
             <a href="/register" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Register</a>
@@ -205,8 +201,7 @@ function clickOutside(node, anchor) {
               >
                 <div class="px-3 py-2 text-slate-600">{displayName}</div>
                 <hr class="my-1" />
-                <a href="/settings/account/api-keys" class="block px-3 py-2 rounded-lg hover:bg-slate-50">API Keys</a>
-                <a href="/settings/account/bot-keys" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Bot Keys</a>
+                <a href="/settings" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Settings</a>
                 <a href="/bot/dashboard" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Bot Dashboard</a>
                 <hr class="my-1" />
                 <a href="/logout" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Logout</a>
