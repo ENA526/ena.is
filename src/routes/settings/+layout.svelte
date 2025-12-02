@@ -14,19 +14,51 @@
 		{
 			section: 'Personal',
 			items: [
-				{ href: '/settings/profile', label: 'Public profile', icon: '👤' },
-				{ href: '/settings/appearance', label: 'Appearance', icon: '🎨' },
-				{ href: '/settings/notifications', label: 'Notifications', icon: '🔔' }
+				{ 
+					href: '/settings/profile', 
+					label: 'Public profile', 
+					icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>'
+				},
+				{ 
+					href: '/settings/appearance', 
+					label: 'Appearance', 
+					icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>'
+				},
+				{ 
+					href: '/settings/notifications', 
+					label: 'Notifications', 
+					icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>'
+				}
 			]
 		},
 		{
 			section: 'Access',
 			items: [
-				{ href: '/settings/emails', label: 'Emails', icon: '✉️' },
-				{ href: '/settings/password', label: 'Password and authentication', icon: '🔒' },
-				{ href: '/settings/sessions', label: 'Sessions', icon: '📱' },
-				{ href: '/settings/api-keys', label: 'API keys', icon: '🔑' },
-                { href: '/settings/bot-keys', label: 'Bot keys', icon: '🔑' }
+				{ 
+					href: '/settings/emails', 
+					label: 'Emails', 
+					icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>'
+				},
+				{ 
+					href: '/settings/password', 
+					label: 'Password and authentication', 
+					icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>'
+				},
+				{ 
+					href: '/settings/sessions', 
+					label: 'Sessions', 
+					icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>'
+				},
+				{ 
+					href: '/settings/api-keys', 
+					label: 'API keys', 
+					icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>'
+				},
+				{ 
+					href: '/settings/bot-keys', 
+					label: 'Bot keys', 
+					icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>'
+				}
 			]
 		}
 	];
@@ -57,7 +89,7 @@
 					class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm flex items-center justify-between hover:bg-slate-50 focus:outline-none focus-visible:ring"
 				>
 					<span class="flex items-center gap-3">
-						<span class="text-lg">{currentItem?.icon || '⚙️'}</span>
+						<span class="text-slate-600">{@html currentItem?.icon || '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>'}</span>
 						<span class="font-semibold">{currentLabel}</span>
 					</span>
 					<svg
@@ -91,7 +123,7 @@
 													? 'bg-slate-100 font-semibold text-slate-900'
 													: 'text-slate-700'}"
 											>
-												<span class="text-base">{item.icon}</span>
+												<span class="text-slate-600">{@html item.icon}</span>
 												<span>{item.label}</span>
 											</a>
 										</li>
@@ -122,7 +154,7 @@
 												? 'bg-slate-100 font-semibold text-slate-900 border-l-4 border-slate-900'
 												: 'text-slate-700 border-l-4 border-transparent'}"
 										>
-											<span class="text-base">{item.icon}</span>
+											<span class="text-slate-600">{@html item.icon}</span>
 											<span>{item.label}</span>
 										</a>
 									</li>
