@@ -8,7 +8,6 @@
 		authClient.listAccounts().then((result) => {
 			accounts = result.data || [];
 			loading = false;
-            console.log(accounts)
 		});
 	});
 
