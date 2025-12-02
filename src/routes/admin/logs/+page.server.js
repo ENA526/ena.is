@@ -9,6 +9,7 @@ export async function load() {
             span_id,
             parent_span_id,
             user_id,
+            method,
             path,
             status_code,
             duration_ms,

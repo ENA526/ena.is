@@ -17,6 +17,28 @@
         return "text-slate-500";
     };
 
+    const methodClass = (method) => {
+        const m = method?.toLowerCase();
+        switch(m) {
+            case 'get':
+                return 'text-blue-600';
+            case 'post':
+                return 'text-green-600';
+            case 'put':
+                return 'text-orange-600';
+            case 'patch':
+                return 'text-teal-600';
+            case 'delete':
+                return 'text-red-600';
+            case 'head':
+                return 'text-purple-600';
+            case 'options':
+                return 'text-indigo-600';
+            default:
+                return 'text-slate-700';
+        }
+    };
+
     function fmtTime(ts) {
         const d = new Date(ts);
         return d.toLocaleDateString() + " " + d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
@@ -62,8 +84,13 @@
         <span class="truncate">{node.path || "(fetch)"}</span>
     </div>
 
-    <!-- USER - hide on very small, truncate on medium, full on large -->
-    <div class="text-slate-500 truncate hidden sm:block min-w-0">
+    <!-- METHOD - always visible -->
+    <div class="font-semibold text-xs flex-shrink-0 uppercase {methodClass(node.method)}">
+        {node.method}
+    </div>
+
+    <!-- USER - hide on small screens -->
+    <div class="text-slate-500 truncate hidden md:block min-w-0">
         {node.user_id || "anon"}
     </div>
 
@@ -89,22 +116,29 @@
 </div>
 
 <style>
-    /* Extra small: endpoint, time (short), status */
+    /* Extra small: endpoint, method, time (short), status */
     div[role="button"] {
-        grid-template-columns: minmax(0, 1fr) minmax(45px, 70px) 45px;
+        grid-template-columns: minmax(0, 1fr) 45px minmax(45px, 70px) 45px;
     }
 
-    /* Small+: endpoint, user, time (short), status */
+    /* Small+: endpoint, method, time (short), status */
     @media (min-width: 640px) {
         div[role="button"] {
-            grid-template-columns: minmax(0, 1fr) minmax(60px, 120px) minmax(50px, 80px) 50px;
+            grid-template-columns: minmax(0, 1fr) 50px minmax(50px, 80px) 50px;
         }
     }
 
-    /* Large+: endpoint, user, time (full), status, latency */
+    /* Medium+: endpoint, method, user, time (short), status */
+    @media (min-width: 768px) {
+        div[role="button"] {
+            grid-template-columns: minmax(0, 1fr) 55px minmax(60px, 120px) minmax(50px, 80px) 50px;
+        }
+    }
+
+    /* Large+: endpoint, method, user, time (full), status, latency */
     @media (min-width: 1024px) {
         div[role="button"] {
-            grid-template-columns: minmax(0, 1fr) minmax(80px, 150px) minmax(100px, 180px) 60px 100px;
+            grid-template-columns: minmax(0, 1fr) 60px minmax(80px, 150px) minmax(100px, 180px) 60px 100px;
         }
     }
 </style>
@@ -126,7 +160,7 @@
                 <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Trace:</span><span class="text-slate-900 font-mono text-xs break-all min-w-0">{node.trace_id}</span></div>
                 <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Span:</span><span class="text-slate-900 font-mono text-xs break-all min-w-0">{node.span_id}</span></div>
                 <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Parent:</span><span class="text-slate-900 font-mono text-xs break-all min-w-0">{node.parent_span_id || "—"}</span></div>
-                <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Method:</span><span class="text-slate-900 font-semibold break-all min-w-0">{node.method}</span></div>
+                <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Method:</span><span class="font-semibold uppercase {methodClass(node.method)}">{node.method}</span></div>
                 <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Path:</span><span class="text-slate-900 font-mono text-xs break-all min-w-0">{node.path}</span></div>
                 <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Status:</span><span class="font-mono font-semibold {statusClass(node.status_code)}">{node.status_code}</span></div>
                 <div class="flex gap-2"><span class="text-slate-500 w-20 shrink-0">Time:</span><span class="text-slate-900 break-all min-w-0">{fmtTime(node.created_at)}</span></div>
