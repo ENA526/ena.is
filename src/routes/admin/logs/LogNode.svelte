@@ -39,7 +39,7 @@
 <div
     role="button"
     tabindex="0"
-    class="grid items-center cursor-pointer hover:bg-slate-50 transition text-sm select-none gap-x-4 py-2 px-4 border-b border-slate-100"
+    class="grid items-center cursor-pointer hover:bg-slate-50 transition text-sm select-none gap-x-2 sm:gap-x-4 py-2 px-3 sm:px-4 border-b border-slate-100"
     onclick={() => onSelect?.(node)}
     onkeydown={(e) => {
         if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
@@ -51,19 +51,19 @@
 >
 
     <!-- ENDPOINT with tree structure -->
-    <div class="flex items-center gap-1 font-medium text-slate-900 truncate leading-tight" style="padding-left: {indent(depth)}px;">
+    <div class="flex items-center gap-1 font-medium text-slate-900 truncate leading-tight min-w-0" style="padding-left: {indent(depth)}px;">
         {#if depth > 0}
-            <span class="text-slate-400 mr-1">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <span class="text-slate-400 mr-1 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 sm:w-5 sm:h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499" />
                 </svg>
             </span>
         {/if}
-        {node.path || "(fetch)"}
+        <span class="truncate">{node.path || "(fetch)"}</span>
     </div>
 
     <!-- USER - hide on very small, truncate on medium, full on large -->
-    <div class="text-slate-500 truncate hidden sm:block">
+    <div class="text-slate-500 truncate hidden sm:block min-w-0">
         {node.user_id || "anon"}
     </div>
 
@@ -72,17 +72,17 @@
         {fmtTime(node.created_at)}
     </div>
 
-    <div class="text-slate-400 whitespace-nowrap lg:hidden">
+    <div class="text-slate-400 whitespace-nowrap text-xs sm:text-sm lg:hidden">
         {fmtTimeShort(node.created_at)}
     </div>
 
     <!-- STATUS - always visible -->
-    <div class="font-mono text-xs text-right {statusClass(node.status_code)}">
+    <div class="font-mono text-xs text-right flex-shrink-0 {statusClass(node.status_code)}">
         {node.status_code}
     </div>
 
     <!-- LATENCY - hide on medium and below -->
-    <div class="font-mono text-xs text-right hidden lg:block {durationClass(node.duration_ms)}">
+    <div class="font-mono text-xs text-right hidden lg:block flex-shrink-0 {durationClass(node.duration_ms)}">
         {node.duration_ms}ms
     </div>
 
@@ -91,20 +91,20 @@
 <style>
     /* Extra small: endpoint, time (short), status */
     div[role="button"] {
-        grid-template-columns: minmax(200px, 1fr) minmax(60px, 100px) 60px;
+        grid-template-columns: minmax(0, 1fr) minmax(45px, 70px) 45px;
     }
 
     /* Small+: endpoint, user, time (short), status */
     @media (min-width: 640px) {
         div[role="button"] {
-            grid-template-columns: minmax(200px, 1fr) minmax(80px, 150px) minmax(60px, 100px) 60px;
+            grid-template-columns: minmax(0, 1fr) minmax(60px, 120px) minmax(50px, 80px) 50px;
         }
     }
 
     /* Large+: endpoint, user, time (full), status, latency */
     @media (min-width: 1024px) {
         div[role="button"] {
-            grid-template-columns: minmax(200px, 1fr) minmax(80px, 150px) minmax(100px, 180px) 60px 100px;
+            grid-template-columns: minmax(0, 1fr) minmax(80px, 150px) minmax(100px, 180px) 60px 100px;
         }
     }
 </style>

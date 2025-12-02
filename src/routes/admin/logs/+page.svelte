@@ -30,15 +30,9 @@
     }
 
     function select(node) {
-        console.log("SELECT:", node.id);
-
         selected = selected?.id === node.id
             ? null
             : node;
-    }
-
-    function pretty(json) {
-        return JSON.stringify(json, null, 2);
     }
 </script>
 
